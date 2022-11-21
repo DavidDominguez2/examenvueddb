@@ -1,8 +1,9 @@
-var Comentario = {
-  idComentario: "",
-  idCubo: 0,
-  idUsuario: 0,
-  comentario: "",
-  fechaComentario: "",
-};
-export default Comentario;
+export default class Comentario {
+  constructor(idComentario, idCubo, idUsuario, comentario, fechaComentario) {
+    this.idComentario = idComentario;
+    this.idCubo = idCubo;
+    this.idUsuario = idUsuario;
+    this.comentario = comentario;
+    this.fechaComentario = fechaComentario;
+  }
+}

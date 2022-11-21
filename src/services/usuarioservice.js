@@ -1,40 +1,54 @@
-import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
-import { environment } from "src/environments/environment";
-import { AuthService } from "./authservice";
-
-@Injectable({
-  providedIn: "root",
-})
-export class UsuarioService {
-  constructor(private _http: HttpClient, private _auth: AuthService) {}
-
-  getPerfilUsuario(): Observable<any> {
-    var header = new HttpHeaders({
-      Authorization: "bearer " + this._auth.getToken(),
+import axios from "axios";
+import Global from "../Global";
+export default class UsuarioService {
+  getPerfilUsuario() {
+    return new Promise(function (resolve) {
+      var request = "/api/Manage/PerfilUsuario";
+      var url = Global.urlApiCubos + request;
+      var token = localStorage.getItem("token");
+      axios
+        .get(url, {
+          headers: {
+            Authorization: "bearer " + token,
+          },
+        })
+        .then((res) => {
+          resolve(res.data);
+        });
     });
-    var request = "/api/Manage/PerfilUsuario";
-    var url = environment.urlApiCubos + request;
-    return this._http.get(url, { headers: header });
   }
 
-  getComprasUsuario(): Observable<any> {
-    var header = new HttpHeaders({
-      Authorization: "bearer " + this._auth.getToken(),
+  getComprasUsuario() {
+    return new Promise(function (resolve) {
+      var request = "/api/Compra/ComprasUsuario";
+      var url = Global.urlApiCubos + request;
+      var token = localStorage.getItem("token");
+      axios
+        .get(url, {
+          headers: {
+            Authorization: "bearer " + token,
+          },
+        })
+        .then((res) => {
+          resolve(res.data);
+        });
     });
-    var request = "/api/Compra/ComprasUsuario";
-    var url = environment.urlApiCubos + request;
-    return this._http.get(url, { headers: header });
   }
 
-  postPedido(id: number): Observable<any> {
-    var header = new HttpHeaders({
-      Authorization: "bearer " + this._auth.getToken(),
+  postPedido(id) {
+    return new Promise(function (resolve) {
+      var request = "/api/Compra/InsertarPedido/" + id;
+      var url = Global.urlApiCubos + request;
+      var token = localStorage.getItem("token");
+      axios
+        .post(url, "", {
+          headers: {
+            Authorization: "bearer " + token,
+          },
+        })
+        .then((res) => {
+          resolve(res.data);
+        });
     });
-
-    var request = "/api/Compra/InsertarPedido/" + id;
-    var url = environment.urlApiCubos + request;
-    return this._http.post(url, "", { headers: header });
   }
 }

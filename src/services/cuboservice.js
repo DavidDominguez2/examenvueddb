@@ -1,44 +1,54 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
+import axios from "axios";
+import Global from "../Global";
 
-@Injectable({
-  providedIn: 'root',
-})
-export class CuboService {
-  constructor(private _http: HttpClient) {}
-
-  getAllMarcas(): Observable<any> {
-    var request = '/api/cubos/marcas';
-    var url = environment.urlApiCubos + request;
-
-    return this._http.get(url);
+export default class CuboService {
+  getAllMarcas() {
+    return new Promise(function (resolve) {
+      var request = "/api/cubos/marcas";
+      var url = Global.urlApiCubos + request;
+      axios.get(url).then((res) => {
+        resolve(res.data);
+      });
+    });
   }
 
-  getAllCubos(): Observable<any> {
-    var request = '/api/cubos/';
-    var url = environment.urlApiCubos + request;
-
-    return this._http.get(url);
+  getAllCubos() {
+    return new Promise(function (resolve) {
+      var request = "/api/cubos/";
+      var url = Global.urlApiCubos + request;
+      axios.get(url).then((res) => {
+        resolve(res.data);
+      });
+    });
   }
 
-  getCubosMarca(marca: string): Observable<any> {
-    var request = '/api/Cubos/CubosMarca/' + marca;
-    var url = environment.urlApiCubos + request;
-
-    return this._http.get(url);
+  getCubosMarca(marca) {
+    return new Promise(function (resolve) {
+      var request = "/api/Cubos/CubosMarca/" + marca;
+      var url = Global.urlApiCubos + request;
+      axios.get(url).then((res) => {
+        resolve(res.data);
+      });
+    });
   }
 
-  getCuboById(id: number): Observable<any> {
-    var request = '/api/Cubos/' + id;
-    var url = environment.urlApiCubos + request;
-    return this._http.get(url);
+  getCuboById(id) {
+    return new Promise(function (resolve) {
+      var request = "/api/Cubos/" + id;
+      var url = Global.urlApiCubos + request;
+      axios.get(url).then((res) => {
+        resolve(res.data);
+      });
+    });
   }
 
-  getComentariosByIdCubo(id: number): Observable<any> {
-    var request = '/api/ComentariosCubo/GetComentariosCubo/' + id;
-    var url = environment.urlApiCubos + request;
-    return this._http.get(url);
+  getComentariosByIdCubo(id) {
+    return new Promise(function (resolve) {
+      var request = "/api/ComentariosCubo/GetComentariosCubo/" + id;
+      var url = Global.urlApiCubos + request;
+      axios.get(url).then((res) => {
+        resolve(res.data);
+      });
+    });
   }
 }

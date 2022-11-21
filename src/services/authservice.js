@@ -3,40 +3,42 @@ import Global from "../Global";
 
 export default class AuthService {
   login(usuario, password) {
-    return new Promise(function(resolve) {
+    return new Promise(function (resolve) {
       var request = "/api/Manage/Login";
       var url = Global.urlApiCubos + request;
       var user = {
         email: usuario,
         password: password,
       };
-      var json = JSON.stringify(user);
-      var header = new HttpHeaders({ "Content-Type": "application/json" });
-    }
- 
-
-
+      axios.post(url, user).then((res) => {
+        resolve(res.data.response);
+      });
+    });
   }
 
-  register(usuario: Usuario) {
-    var request = "/api/Manage/RegistroUsuario";
-    var url = environment.urlApiCubos + request;
+  register(usuario) {
+    return new Promise(function (resolve) {
+      var request = "/api/Manage/RegistroUsuario";
+      var url = Global.urlApiCubos + request;
+      var json = JSON.stringify(usuario);
 
-    var json = JSON.stringify(usuario);
-    var header = new HttpHeaders({ "Content-Type": "application/json" });
-
-    return this._http.post(url, json, { headers: header });
+      axios
+        .post(url, json, { headers: { "Content-Type": "application/json" } })
+        .then((res) => {
+          resolve(res.data);
+        });
+    });
   }
 
-  setToken(token: string): any {
+  setToken(token) {
     localStorage.setItem("token", token);
   }
 
-  getToken(): any {
+  getToken() {
     return localStorage.getItem("token");
   }
 
-  deleteToken(): any {
+  deleteToken() {
     localStorage.removeItem("token");
   }
 }
