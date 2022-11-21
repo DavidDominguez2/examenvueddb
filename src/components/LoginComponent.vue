@@ -23,10 +23,8 @@ export default {
   },
   methods: {
     login() {
-      // var email = this.email;
-      // var password = this.password;
-      var email = "david.dominguez.blanco.2001@gmail.com";
-      var password = "12345";
+      var email = this.email;
+      var password = this.password;
 
       _serviceAuth.login(email, password).then((res) => {
         _serviceAuth.setToken(res);
